@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctbgusanmulxa"]
+
+[ext_resource type="Script" uid="uid://2ijbrmg45sfn" path="res://ball.gd" id="1_x8fbi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8fbi"]
+size = Vector2(40, 40)
+
+[node name="Ball" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_x8fbi")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_x8fbi")

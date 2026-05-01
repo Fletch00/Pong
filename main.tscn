@@ -1,0 +1,94 @@
+[gd_scene load_steps=9 format=3 uid="uid://vq356ogoellw"]
+
+[ext_resource type="PackedScene" uid="uid://bkc2txxcd5vdb" path="res://paddle.tscn" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://mv58jyic2fg6" path="res://paddle.gd" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://ctbgusanmulxa" path="res://ball.tscn" id="3_lquwl"]
+[ext_resource type="PackedScene" uid="uid://37lgvofqvbel" path="res://hitbox.tscn" id="4_1bvp3"]
+[ext_resource type="FontFile" uid="uid://8cgiidodu0yy" path="res://Amethysta-Regular.ttf" id="5_lquwl"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h2yge"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
+size = Vector2(1463, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(273, 653)
+
+[node name="Main" type="Node2D"]
+
+[node name="Paddle2" parent="." instance=ExtResource("1_h2yge")]
+position = Vector2(38, 167)
+script = ExtResource("2_1bvp3")
+player = 2
+
+[node name="Paddle1" parent="." instance=ExtResource("1_h2yge")]
+position = Vector2(1071, 167)
+script = ExtResource("2_1bvp3")
+
+[node name="Ball" parent="." instance=ExtResource("3_lquwl")]
+position = Vector2(539, 279)
+physics_material_override = SubResource("PhysicsMaterial_h2yge")
+gravity_scale = 0.0
+
+[node name="Wall" type="StaticBody2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(574.5, -10)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2(0, 669)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+position = Vector2(574.5, -10)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("score1", "score2") instance=ExtResource("4_1bvp3")]
+position = Vector2(-12, 19)
+player = 2
+score1 = NodePath("../Scoreboard/Score1")
+score2 = NodePath("../Scoreboard/Score2")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-126.5, 304.5)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="Hitbox2" parent="." node_paths=PackedStringArray("score1", "score2") instance=ExtResource("4_1bvp3")]
+position = Vector2(1416, 19)
+score1 = NodePath("../Scoreboard/Score1")
+score2 = NodePath("../Scoreboard/Score2")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox2"]
+position = Vector2(-126.5, 304.5)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="Scoreboard" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Score1" type="Label" parent="Scoreboard"]
+layout_mode = 0
+offset_left = 990.0
+offset_right = 1147.0
+offset_bottom = 93.0
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 2
+
+[node name="Score2" type="Label" parent="Scoreboard"]
+layout_mode = 0
+offset_left = 6.0
+offset_right = 163.0
+offset_bottom = 93.0
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 64
+text = "0"
